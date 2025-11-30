@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <style>
+        /* --- 基础设置 (浅色主题优化) --- */
         :root {
-            --bg-color: #f9f9f9;
+            --brand-color: #5d5cff;       /* 引入一个主色调（淡紫色/蓝色） */
+            --brand-hover: #4e4df0;
+            --bg-color: #f6f6f9;          /* 背景略微偏灰，增加深度 */
             --card-bg: #ffffff;
             --card-hover: #ffffff;
             --text-main: #111111;
             --text-sub: #888888;
             --shadow-base: rgba(0, 0, 0, 0.04);
-            --shadow-hover: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12); /* 增强悬停阴影效果 */
         }
 
         * {
@@ -86,6 +89,7 @@
             color: var(--text-main);
         }
 
+        /* --- 个人简介样式 --- */
         .profile {
             grid-column: span 2;
             grid-row: span 2;
@@ -97,7 +101,6 @@
             height: 80px;
             border-radius: 50%;
             margin-bottom: 20px;
-            /* 已更新头像链接 */
             background-image: url('https://scontent.cdninstagram.com/v/t51.29350-15/434695200_817129286906866_5624983301605661099_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzMzNDgxMTIwMDgwMTc5MTUzMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=sBU2uZFYaUMQ7kNvwHjV7YE&_nc_oc=AdnuMVxSF7HieVQpRphPEXeu5g6JHRah7Pejhusmn206Yv4sNJQJvtVHMAoCl6srt14&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=sKwDtNHLCV5uSAoNMfE1zw&oh=00_AfgzWKDkKmyB4y-Jv7adx2B8nZwn10SumVCwjVqG01Z5oA&oe=6931C1E9');
             background-size: cover;
             background-position: center;
@@ -114,6 +117,7 @@
             opacity: 0.7;
         }
 
+        /* --- 视频模块样式 --- */
         .showreel {
             grid-column: span 2;
             grid-row: span 2;
@@ -151,10 +155,10 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
             color: var(--text-main);
             z-index: 10;
-            /* 修正：确保 play-btn 不会阻止点击 a 标签 */
             pointer-events: none;
         }
 
+        /* --- 社交媒体卡片样式 --- */
         .instagram {
             grid-column: span 2;
             background: var(--card-bg);
@@ -164,8 +168,9 @@
         .card svg {
             stroke: var(--text-main);
         }
-        /* TikTok SVG 使用 fill，所以不需要 stroke 规则 */
-        .card a.youtube svg {
+        
+        /* 针对 TikTok/Red 的颜色特殊处理 */
+        .card a.tiktok svg {
             fill: var(--text-main);
         }
 
@@ -173,17 +178,20 @@
             border-color: rgba(255, 36, 66, 0.4);
         }
 
+        /* --- 联系卡片样式 (关键修改点) --- */
         .contact {
             grid-column: span 2;
             align-items: center;
             justify-content: center;
-            background: #111;
-            color: #fff;
+            /* 修正为使用主色调，增加视觉丰富度 */
+            background: var(--brand-color);
+            color: #fff; 
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .contact:hover {
-            background: #333;
+            /* 悬停时颜色变深 */
+            background: var(--brand-hover);
         }
 
         .contact span {
@@ -191,10 +199,12 @@
             font-size: 1.4rem;
         }
 
+        /* --- 音乐卡片样式 (关键修改点) --- */
         .music-card {
             grid-column: span 2;
             padding: 0;
-            background: #000;
+            /* 移除纯黑背景，采用普通卡片背景，让 iframe 自身的深色背景生效 */
+            background: var(--card-bg); 
         }
 
         .music-card iframe {
@@ -204,6 +214,7 @@
             border-radius: 24px;
         }
 
+        /* --- Swiper 样式 --- */
         .gallery-section {
             width: 100%;
             max-width: 1000px;
@@ -233,6 +244,7 @@
             transform: scale(1.05);
         }
 
+        /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
             body {
                 padding: 40px 5vw;
@@ -246,7 +258,7 @@
             .profile,
             .showreel,
             .instagram,
-            .youtube,
+            .tiktok,
             .xiaohongshu,
             .contact,
             .music-card {
@@ -315,7 +327,7 @@
             <div class="label">Instagram ↗</div>
         </a>
 
-        <a href="https://www.tiktok.com/@yuman5312" target="_blank" class="card youtube">
+        <a href="https://www.tiktok.com/@yuman5312" target="_blank" class="card tiktok">
             <svg width="32" height="32" viewBox="0 0 256 256" fill="currentColor">
                 <path d="M128 0C57.31 0 0 57.31 0 128s57.31 128 128 128 128-57.31 128-128S198.69 0 128 0zm24 184a40 40 0 1 1-24-36v-44h-32v64a64 64 0 1 0 56-60v-24h-24v52a40 40 0 0 1-16 36z" />
             </svg>
@@ -332,7 +344,7 @@
         </a>
 
         <div class="card music-card">
-            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator&theme=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator" width="100%" height="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
     </div>
@@ -353,7 +365,6 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 修正：将 Swiper 实例赋给变量
             const swiper = new Swiper('.swiper-container', {
                 slidesPerView: 2.2,
                 spaceBetween: 24,
