@@ -4,60 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuman Mok | Portfolio</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <style>
-        /* --- 基础设置 --- */
+        /* --- 基础设置 (浅色主题) --- */
         :root {
-            --bg-color: #050505;
-            --card-bg: #111111;
-            --card-hover: #1a1a1a;
-            --text-main: #ffffff;
+            --bg-color: #f9f9f9; 
+            --card-bg: #ffffff; 
+            --card-hover: #ffffff;
+            --text-main: #111111; 
             --text-sub: #888888;
+            --shadow-base: rgba(0,0,0,0.04);
+            --shadow-hover: rgba(0,0,0,0.08);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 40px 20px;
+            padding: 80px 10vw; 
+            line-height: 1.6;
         }
 
-        /* --- 容器设置 --- */
-        .container {
+        /* --- 容器设置 (网格) --- */
+        .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             grid-auto-rows: minmax(160px, auto);
-            gap: 16px;
+            gap: 32px; 
             max-width: 1000px;
             width: 100%;
             margin-bottom: 40px;
         }
+        
+        h1, h2, h3 { letter-spacing: -0.5px; }
 
         /* --- 卡片通用样式 --- */
         .card {
             background-color: var(--card-bg);
             border-radius: 24px;
-            padding: 24px;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 32px; 
+            transition: all 0.35s cubic-bezier(.25,.1,.25,1);
             position: relative;
             overflow: hidden;
             text-decoration: none;
             color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.05);
+            border: none;
+            box-shadow: 0 4px 20px var(--shadow-base);
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-6px); 
             background-color: var(--card-hover);
-            border-color: rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            box-shadow: 0 12px 36px var(--shadow-hover);
         }
 
         .label {
@@ -70,172 +76,167 @@
         }
         .card:hover .label { color: var(--text-main); }
 
-        /* --- 模块布局 --- */
+
+        /* --- 模块布局 (Profile, CTA, Socials) --- */
+        .profile { grid-column: span 2; grid-row: span 2; justify-content: space-between; }
+        .avatar { width: 80px; height: 80px; background-color: #ccc; border-radius: 50%; margin-bottom: 20px; background-image: url('https://ui-avatars.com/api/?name=Yuman+Mok&background=333&color=fff&size=128'); background-size: cover; }
+        .profile h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;}
+        .profile p { font-size: 1rem; opacity: 0.7; }
         
-        /* 1. 个人简介 */
-        .profile {
-            grid-column: span 2;
-            grid-row: span 2;
-            justify-content: space-between;
-        }
-        .avatar {
-            width: 80px; height: 80px;
-            background-color: #333;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            background-image: url('https://ui-avatars.com/api/?name=Yuman+Mok&background=333&color=fff&size=128');
-            background-size: cover;
-        }
-        .profile h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px;}
-
-        /* 2. 视频 Showreel */
-        .showreel {
-            grid-column: span 2;
-            grid-row: span 2;
-            padding: 0;
-        }
-        .video-bg {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.4s;
-        }
+        .showreel { grid-column: span 2; grid-row: span 2; padding: 0; overflow: hidden; }
+        .video-bg { width: 100%; height: 100%; object-fit: cover; opacity: 1; transition: transform 0.4s; border-radius: 24px; }
         .showreel:hover .video-bg { opacity: 1; transform: scale(1.02); }
-        .play-btn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
-            width: 64px; height: 64px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* 3. 社交媒体 */
-        .instagram {
-            grid-column: span 2;
-            background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-        }
-        .youtube { grid-column: span 1; }
-        .xiaohongshu { grid-column: span 1; position: relative; }
+        .play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.1); color: var(--text-main); z-index: 10; }
+        
+        .instagram { grid-column: span 2; background: var(--card-bg); border: 1px solid #eee; }
+        .card svg { stroke: var(--text-main); }
         .xiaohongshu:hover { border-color: rgba(255, 36, 66, 0.4); }
 
-        /* 4. 联系方式 (调整为占2格) */
-        .contact {
-            grid-column: span 2;
-            align-items: center; justify-content: center;
-            background: #fff; color: #000;
-        }
-        .contact:hover { background: #e0e0e0; }
+        .contact { grid-column: span 2; align-items: center; justify-content: center; background: #111; color: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .contact:hover { background: #333; }
+        .contact span { font-weight:700; font-size:1.4rem; }
 
-        /* 5. 音乐播放器 (新增，占2格) */
-        .music-card {
-            grid-column: span 2;
-            padding: 0; /* 去掉内边距以填满 */
-            background: #000;
-        }
-        /* 这里的 iframe 样式是为了适配 Spotify */
-        .music-card iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+        .music-card { grid-column: span 2; padding: 0; background: #000; }
+        .music-card iframe { width: 100%; height: 100%; border: none; border-radius: 24px; }
 
-        /* --- 底部轮播 --- */
+        /* --- Swiper 轮播样式 --- */
         .gallery-section {
-            width: 100%; max-width: 1000px; overflow: hidden; margin-top: 20px;
+            width: 100%; 
+            max-width: 1000px; 
+            margin-top: 80px;
+            /* Swiper 容器 */
+            overflow: hidden; 
         }
-        .gallery-track {
-            display: flex; gap: 16px; width: max-content;
-            animation: scroll 40s linear infinite;
-        }
+
         .gallery-item {
-            height: 200px; width: 200px; border-radius: 16px; overflow: hidden; flex-shrink: 0;
+            /* Swiper Slide 样式 */
+            height: 200px; 
+            width: 100%; /* 由 Swiper 控制宽度 */
+            border-radius: 16px; 
+            overflow: hidden; 
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         .gallery-item img {
-            width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: filter 0.3s;
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            filter: grayscale(0%); 
+            transition: filter 0.3s, transform 0.3s;
         }
-        .gallery-item:hover img { filter: grayscale(0%); }
+        .gallery-item:hover img { filter: grayscale(100%); transform: scale(1.05); } 
         
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-200px * 6 - 16px * 6)); }
+        /* 移除原有的 @keyframes scroll */
+
+        /* --- 移动端响应式 --- */
+        @media (max-width: 768px) {
+            body { padding: 40px 5vw; }
+            .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
+            .profile, .showreel, .instagram, .youtube, .xiaohongshu, .contact, .music-card {
+                grid-column: span 1; min-height: 140px;
+                padding: 24px;
+            }
+            .profile h1 { font-size: 1.8rem; }
+            .showreel { min-height: 220px; }
+            .music-card { min-height: 152px; }
+            .avatar { width: 60px; height: 60px; }
+            
+            .gallery-section { margin-top: 40px; }
         }
 
-        /* --- 移动端 --- */
-        @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; }
-            .profile, .showreel, .instagram, .youtube, .xiaohongshu, .contact, .music-card {
-                grid-column: span 1; min-height: 180px;
-            }
-            .showreel { min-height: 280px; }
-            .music-card { min-height: 152px; } /* Spotify 紧凑高度 */
-        }
     </style>
 </head>
 <body>
-
-    <div class="container">
+    
+    <div class="portfolio-grid">
         
         <div class="card profile">
             <div>
                 <div class="avatar"></div>
                 <h1>Yuman Mok</h1>
-                <p>Band Manager & Alcoholic<br>Based in Bejing / Canton</p>
+                <p style="color: var(--text-main); opacity: 0.7;">Band Manager & Alcoholic<br>Based in Bejing / Canton</p>
             </div>
             <div class="label">© 2025</div>
         </div>
 
-        <a href="#" class="card showreel">
-<video autoplay loop muted playsinline class="video-bg">
-    <source src="https://sns-video-hs.xhscdn.com/stream/79/110/259/01e8d789ea1729ca01037003998a12bb70_259.mp4" type="video/mp4">
-</video>            
-          <div class="play-btn"><svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-            <div style="position:absolute; bottom:20px; left:20px; z-index:2;">
-                <h3 style="font-size:1.2rem;">2025 Reel</h3>
+        <a href="https://v.douyin.com/iR31M35J/" target="_blank" class="card showreel">
+            <video autoplay loop muted playsinline class="video-bg">
+                <source src="https://sns-video-hs.xhscdn.com/stream/79/110/259/01e8d789ea1729ca01037003998a12bb70_259.mp4" type="video/mp4">
+            </video>              
+            <div class="play-btn">
+                <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <div style="position:absolute; bottom:32px; left:32px; z-index:2;">
+                <h3 style="font-size:1.2rem; color:white; text-shadow: 0 0 5px rgba(0,0,0,0.7);">2025 Reel</h3>
             </div>
         </a>
 
         <a href="https://www.instagram.com/YUMANMOK" target="_blank" class="card instagram">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
             <div class="label">Instagram ↗</div>
         </a>
 
         <a href="https://www.tiktok.com/@yuman5312" target="_blank" class="card youtube">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tiktok"><path d="M9 12a4 4 0 0 0 4 4V7a4 4 0 1 1 4 4h-4a4 4 0 0 0-4-4z"/><path d="M16 17v4m-7-9v4"/></svg>
             <div class="label">TIKTOK</div>
         </a>
 
-        <a href="https://www.xiaohongshu.com/user/profile/5687adff5e87e731b77b52db?xsec_token=YBnpdh7y_VWfL1nMAAzuJqhiavQ_WpIq1XuVhS6lqGl9U=&xsec_source=app_share&xhsshare=CopyLink&shareRedId=Nzw6N0RJSk87TD05Tj8zN0g6QEk5N0pL&apptime=1761635513&share_id=4dff03655eb44380b8c512a42e6358d2" target="_blank" class="card xiaohongshu">
-            <div style="color: #ff2442; font-weight:900; font-size:1.2rem;">RED</div>
+        <a href="https://www.xiaohongshu.com/user/profile/5687adff5e87e731b77b52db" target="_blank" class="card xiaohongshu">
+            <div style="color: #ff2442; font-weight:900; font-size:1.8rem;">RED</div>
             <div class="label">Xiaohongshu</div>
         </a>
 
-        <a href="yumanmok42@gmail.com" class="card contact">
-            <span style="font-weight:700; font-size:1.2rem;">TALK WITH ME</span>
+        <a href="mailto:yumanmok42@gmail.com" class="card contact">
+            <span style="font-weight:700; font-size:1.4rem;">TALK WITH ME</span>
         </a>
 
         <div class="card music-card">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/artist/YOUR_ARTIST_ID?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
     </div>
 
-    <div class="gallery-section">
-        <div class="gallery-track">
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.82787-15/586678011_18537401626054126_1806756505533089462_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc3NDkyNDE2MzgxOTU5ODEwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxOC5zZHIuQzMifQ%3D%3D&_nc_ohc=9KsANxJTfwMQ7kNvwFnSaLd&_nc_oc=AdmM4jGGgv5IBtE_7gtUhJIuOWeNJrgM9EtypINzoPFQIlxc2Z4kubGzqOAMM4Ditnk&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=uPyF_A8qBX4vlCGzcTPt_g&oh=00_AfjDDHmUip_Cz6QEVYfvitAi9G8e5mO4Cs0KUxXtHHFMyg&oe=6931477A"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/468809878_1124327509073560_8557229509737193427_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=MzUxMjM3NjY1Mzc3NzU0Mjk5OQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=LCvhDyNkNNgQ7kNvwEBFRXo&_nc_oc=AdnusNQuqhofGGPFqEVUcmFWvfZSG5H0PYekNhUA7q56Ph6FyigphdGXaA9oW8BsJ0g&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4FOMDeFuRxxtijqcvqpLxw&oh=00_AfhlHJW_rr5M5G7T7pOaNe2zi7poGMw3-0trJ2tm7aolEQ&oe=693135A1"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/456720200_858546882524369_9026759935935559384_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=108&ig_cache_key=MzQ0MTYyOTQxMzc4NjYyNTk5OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4MC5oZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=wdlCfRKwrpgQ7kNvwE-jQku&_nc_oc=AdmlU5Te_-W6f0oV3flYnO4Q-5UykG9wpWs_xUqt2sw4nnU8R7iyu0JeTbVEDArrBzg&_nc_zt=23&se=-1&_nc_ht=scontent.cdninstagram.com&_nc_gid=naYRZmEW_JCCcuaOX6xRXw&oh=00_AfgIY6kbo3BDQ98zF1_wWScwK0iPBJl3AfekBOnSF6Xngw&oe=6931509E"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/416560155_1566547424081636_2590372858106644115_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzI3MTkyNTY2NjI0OTYwNTM1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ni5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=310resrR6REQ7kNvwFV5Y_Z&_nc_oc=AdnydkFv_P8F__rNw6GCbJzPi5C6MmKFO7JRwd4Lf-6vMvbitiHFVkxgKkbKb2JKWW4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=NVpazklNAzqiTdXmxo_mpw&oh=00_Afj7Q50-yUmPOwqT_xVJTIP6Ea81YGOBKm5oPgD-v1KpOQ&oe=69312829"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/426069052_393098243298091_6186439351646472103_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzI5OTYzMDg2NjQ4NTU3MjgwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=7_5XlzicN2wQ7kNvwH1yigb&_nc_oc=Adk5mTtoWEtK_5ru4qc_U9SUi24yu6OSqRqe6LiDyjyrp7gpbJYGhzkEKTtJo7No9A0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=yQ0bhCgDYoWWV0NJFeLDSQ&oh=00_AfjG8sjB7jb_SjjCyffHkqhwquyKJiacvswZAVdwo_F4Qg&oe=69313935"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/435291514_1339378000068964_4602357835096393093_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMzODMxNjU5NjE3NDkxMjYwMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=eW3j5fptCNAQ7kNvwElSxGo&_nc_oc=Adnk6qQKEb3DgizT5JaZc7e74BtYn8f4_L25H_q8DQgOgHCo1z3rsa6M9HuxConDe5E&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=lQJIgE1AIIizGNmf27w3SQ&oh=00_AfgbX64u7R26jA2YXSZeKF17jRIW5NRAa19s2bkFjpN1rA&oe=693126CC"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/474986377_18479704585054126_4908245254158342239_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzU1OTkzMjc4NTY3MjgxNjcyMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=bkGGE6iSrKgQ7kNvwEtRmdx&_nc_oc=Adn5zBcz1w7dLVoTJjgIyCZNnwdYHCiJIVsQLuUG9jQPT756FVNU4NYM8stQrp4t_nc&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=pBkKhbH9UXsx0W0bCIW0uQ&oh=00_AfiOzjVjGPA5TujNmgn6jAuJEQsThhYj4yq98xNwflUDcg&oe=69314075"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/487469288_18490088137054126_7603686794289392639_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=110&ig_cache_key=MzU5ODgwODE0MjU3MjEyNDQ1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjcyMHg5MDAuc2RyLkMzIn0%3D&_nc_ohc=fuu5zGtDZs0Q7kNvwFrI_o4&_nc_oc=AdnHnjfaLbKAGryOHrJssfYFy-C4K5xUUw-wJZP3lPMuPGw5WbjJzOTrzX5SWwsKpas&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=maZganjQbgXM0Hv8lFF-XA&oh=00_AfiMkh10aBHCI5I0n9mA3mltAhkWjyhMcLmnuT1gOovg3Q&oe=69313806"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.82787-15/586678011_18537401626054126_1806756505533089462_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc3NDkyNDE2MzgxOTU5ODEwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxOC5zZHIuQzMifQ%3D%3D&_nc_ohc=9KsANxJTfwMQ7kNvwFnSaLd&_nc_oc=AdmM4jGGgv5IBtE_7gtUhJIuOWeNJrgM9EtypINzoPFQIlxc2Z4kubGzqOAMM4Ditnk&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=uPyF_A8qBX4vlCGzcTPt_g&oh=00_AfjDDHmUip_Cz6QEVYfvitAi9G8e5mO4Cs0KUxXtHHFMyg&oe=6931477A"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/468809878_1124327509073560_8557229509737193427_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=MzUxMjM3NjY1Mzc3NzU0Mjk5OQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=LCvhDyNkNNgQ7kNvwEBFRXo&_nc_oc=AdnusNQuqhofGGPFqEVUcmFWvfZSG5H0PYekNhUA7q56Ph6FyigphdGXaA9oW8BsJ0g&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4FOMDeFuRxxtijqcvqpLxw&oh=00_AfhlHJW_rr5M5G7T7pOaNe2zi7poGMw3-0trJ2tm7aolEQ&oe=693135A1"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/456720200_858546882524369_9026759935935559384_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=108&ig_cache_key=MzQ0MTYyOTQxMzc4NjYyNTk5OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4MC5oZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=wdlCfRKwrpgQ7kNvwE-jQku&_nc_oc=AdmlU5Te_-W6f0oV3flYnO4Q-5UykG9wpWs_xUqt2sw4nnU8R7iyu0JeTbVEDArrBzg&_nc_zt=23&se=-1&_nc_ht=scontent.cdninstagram.com&_nc_gid=naYRZmEW_JCCcuaOX6xRXw&oh=00_AfgIY6kbo3BDQ98zF1_wWScwK0iPBJl3AfekBOnSF6Xngw&oe=6931509E"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/416560155_1566547424081636_2590372858106644115_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzI3MTkyNTY2NjI0OTYwNTM1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ni5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=310resrR6REQ7kNvwFV5Y_Z&_nc_oc=AdnydkFv_P8F__rNw6GCbJzPi5C6MmKFO7JRwd4Lf-6vMvbitiHFVkxgKkbKb2JKWW4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=NVpazklNAzqiTdXmxo_mpw&oh=00_Afj7Q50-yUmPOwqT_xVJTIP6Ea81YGOBKm5oPgD-v1KpOQ&oe=69312829"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/426069052_393098243298091_6186439351646472103_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzI5OTYzMDg2NjQ4NTU3MjgwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=7_5XlzicN2wQ7kNvwH1yigb&_nc_oc=Adk5mTtoWEtK_5ru4qc_U9SUi24yu6OSqRqe6LiDyjyrp7gpbJYGhzkEKTtJo7No9A0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=yQ0bhCgDYoWWV0NJFeLDSQ&oh=00_AfjG8sjB7jb_SjjCyffHkqhwquyKJiacvswZAVdwo_F4Qg&oe=69313935"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/435291514_1339378000068964_4602357835096393093_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMzODMxNjU5NjE3NDkxMjYwMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=eW3j5fptCNAQ7kNvwElSxGo&_nc_oc=Adnk6qQKEb3DgizT5JaZc7e74BtYn8f4_L25H_q8DQgOgHCo1z3rsa6M9HuxConDe5E&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=lQJIgE1AIIizGNmf27w3SQ&oh=00_AfgbX64u7R26jA2YXSZeKF17jRIW5NRAa19s2bkFjpN1rA&oe=693126CC"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/474986377_18479704585054126_4908245254158342239_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzU1OTkzMjc4NTY3MjgxNjcyMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=bkGGE6iSrKgQ7kNvwEtRmdx&_nc_oc=Adn5zBcz1w7dLVoTJjgIyCZNnwdYHCiJIVsQLuUG9jQPT756FVNU4NYM8stQrp4t_nc&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=pBkKhbH9UXsx0W0bCIW0uQ&oh=00_AfiOzjVjGPA5TujNmgn6jAuJEQsThhYj4yq98xNwflUDcg&oe=69314075"></div>
-            <div class="gallery-item"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/487469288_18490088137054126_7603686794289392639_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=110&ig_cache_key=MzU5ODgwODE0MjU3MjEyNDQ1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjcyMHg5MDAuc2RyLkMzIn0%3D&_nc_ohc=fuu5zGtDZs0Q7kNvwFrI_o4&_nc_oc=AdnHnjfaLbKAGryOHrJssfYFy-C4K5xUUw-wJZP3lPMuPGw5WbjJzOTrzX5SWwsKpas&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=maZganjQbgXM0Hv8lFF-XA&oh=00_AfiMkh10aBHCI5I0n9mA3mltAhkWjyhMcLmnuT1gOovg3Q&oe=69313806"></div>
+    <div class="gallery-section swiper-container">
+        <div class="gallery-track swiper-wrapper">
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.82787-15/586678011_18537401626054126_1806756505533089462_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=Mzc3NDkyNDE2MzgxOTU5ODEwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTkxOC5zZHIuQzMifQ%3D%3D&_nc_ohc=9KsANxJTfwMQ7kNvwFnSaLd&_nc_oc=AdmM4jGGgv5IBtE_7gtUhJIuOWeNJrgM9EtypINzoPFQIlxc2Z4kubGzqOAMM4Ditnk&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=uPyF_A8qBX4vlCGzcTPt_g&oh=00_AfjDDHmUip_Cz6QEVYfvitAi9G8e5mO4Cs0KUxXtHHFMyg&oe=6931477A"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/468809878_1124327509073560_8557229509737193427_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&ig_cache_key=MzUxMjM3NjY1Mzc3NzU0Mjk5OQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=LCvhDyNkNNgQ7kNvwEBFRXo&_nc_oc=AdnusNQuqhofGGPFqEVUcmFWvfZSG5H0PYekNhUA7q56Ph6FyigphdGXaA9oW8BsJ0g&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=4FOMDeFuRxxtijqcvqpLxw&oh=00_AfhlHJW_rr5M5G7T7pOaNe2zi7poGMw3-0trJ2tm7aolEQ&oe=693135A1"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/456720200_858546882524369_9026759935935559384_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=108&ig_cache_key=MzQ0MTYyOTQxMzc4NjYyNTk5OA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4MC5oZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=wdlCfRKwrpgQ7kNvwE-jQku&_nc_oc=AdmlU5Te_-W6f0oV3flYnO4Q-5UykG9wpWs_xUqt2sw4nnU8R7iyu0JeTbVEDArrBzg&_nc_zt=23&se=-1&_nc_ht=scontent.cdninstagram.com&_nc_gid=naYRZmEW_JCCcuaOX6xRXw&oh=00_AfgIY6kbo3BDQ98zF1_wWScwK0iPBJl3AfekBOnSF6Xngw&oe=6931509E"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/416560155_1566547424081636_2590372858106644115_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzI3MTkyNTY2NjI0OTYwNTM1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ni5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=310resrR6REQ7kNvwFV5Y_Z&_nc_oc=AdnydkFv_P8F__rNw6GCbJzPi5C6MmKFO7JRwd4Lf-6vMvbitiHFVkxgKkbKb2JKWW4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=NVpazklNAzqiTdXmxo_mpw&oh=00_Afj7Q50-yUmPOwqT_xVJTIP6Ea81YGOBKm5oPgD-v1KpOQ&oe=69312829"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/426069052_393098243298091_6186439351646472103_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzI5OTYzMDg2NjQ4NTU3MjgwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=7_5XlzicN2wQ7kNvwH1yigb&_nc_oc=Adk5mTtoWEtK_5ru4qc_U9SUi24yu6OSqRqe6LiDyjyrp7gpbJYGhzkEKTtJo7No9A0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=yQ0bhCgDYoWWV0NJFeLDSQ&oh=00_AfjG8sjB7jb_SjjCyffHkqhwquyKJiacvswZAVdwo_F4Qg&oe=69313935"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/435291514_1339378000068964_4602357835096393093_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMzODMxNjU5NjE3NDkxMjYwMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=eW3j5fptCNAQ7kNvwElSxGo&_nc_oc=Adnk6qQKEb3DgizT5JaZc7e74BtYn8f4_L25H_q8DQgOgHCo1z3rsa6M9HuxConDe5E&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=lQJIgE1AIIizGNmf27w3SQ&oh=00_AfgbX64u7R26jA2YXSZeKF17jRIW5NRAa19s2bkFjpN1rA&oe=693126CC"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/474986377_18479704585054126_4908245254158342239_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzU1OTkzMjc4NTY3MjgxNjcyMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=bkGGE6iSrKgQ7kNvwEtRmdx&_nc_oc=Adn5zBcz1w7dLVoTJjgIyCZNnwdYHCiJIVsQLuUG9jQPT756FVNU4NYM8stQrp4t_nc&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=pBkKhbH9UXsx0W0bCIW0uQ&oh=00_AfiOzjVjGPA5TujNmgn6jAuJEQsThhYj4yq98xNwflUDcg&oe=69314075"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/487469288_18490088137054126_7603686794289392639_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=110&ig_cache_key=MzU5ODgwODE0MjU3MjEyNDQ1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjcyMHg5MDAuc2RyLkMzIn0%3D&_nc_ohc=fuu5zGtDZs0Q7kNvwFrI_o4&_nc_oc=AdnHnjfaLbKAGryOHrJssfYFy-C4K5xUUw-wJZP3lPMuPGw5WbjJzOTrzX5SWwsKpas&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=maZganjQbgXM0Hv8lFF-XA&oh=00_AfiMkh10aBHCI5I0n9mA3mltAhkWjyhMcLmnuT1gOovg3Q&oe=69313806"></div>
         </div>
     </div>
+    
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+    <script>
+        // 确保 DOM 加载完毕再初始化 Swiper
+        document.addEventListener('DOMContentLoaded', function() {
+            // 注意：我们将 .gallery-section 设为 Swiper 容器 (.swiper-container)
+            var swiper = new Swiper('.swiper-container', {
+                // 用户要求的配置
+                slidesPerView: 2.2, // 每页显示 2.2 个滑块
+                spaceBetween: 24,   // 滑块间距 24px
+                loop: true,         // 开启循环模式
+                autoplay: {
+                    delay: 2500,    // 自动播放间隔 2.5 秒
+                    disableOnInteraction: false, // 用户滑动后不停止自动播放
+                },
+                speed: 800,         // 切换速度 800ms，更平滑
+                
+                // 移动端配置 (可选，增强体验)
+                breakpoints: {
+                    // 当视口宽度小于等于 768px 时
+                    768: {
+                        slidesPerView: 1.2,
+                        spaceBetween: 16
+                    }
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
