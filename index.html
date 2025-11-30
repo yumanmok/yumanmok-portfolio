@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuman Mok | Portfolio</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+
     <style>
         /* --- 基础设置 (浅色主题) --- */
         :root {
@@ -78,8 +79,22 @@
 
 
         /* --- 模块布局 (Profile, CTA, Socials) --- */
-        .profile { grid-column: span 2; grid-row: span 2; justify-content: space-between; }
-        .avatar { width: 80px; height: 80px; background-color: #ccc; border-radius: 50%; margin-bottom: 20px; background-image: url('https://ui-avatars.com/api/?name=Yuman+Mok&background=333&color=fff&size=128'); background-size: cover; }
+        /* 1. 个人简介 */
+        .profile { 
+            grid-column: span 2; 
+            grid-row: span 2; 
+            justify-content: space-between; 
+        }
+        .avatar { 
+            width: 80px; 
+            height: 80px; 
+            border-radius: 50%; 
+            margin-bottom: 20px; 
+            /* ***** 已更新为新头像图片链接 ***** */
+            background-image: url('https://scontent.cdninstagram.com/v/t51.29350-15/434695200_817129286906866_5624983301605661099_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzMzNDgxMTIwMDgwMTc5MTUzMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=sBU2uZFYaUMQ7kNvwHjV7YE&_nc_oc=AdnuMVxSF7HieVQpRphPEXeu5g6JHRah7Pejhusmn206Yv4sNJQJvtVHMAoCl6srt14&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=sKwDtNHLCV5uSAoNMfE1zw&oh=00_AfgzWKDkKmyB4y-Jv7adx2B8nZwn10SumVCwjVqG01Z5oA&oe=6931C1E9'); 
+            background-size: cover; 
+            background-position: center; /* 确保图片居中 */
+        }
         .profile h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px;}
         .profile p { font-size: 1rem; opacity: 0.7; }
         
@@ -104,14 +119,12 @@
             width: 100%; 
             max-width: 1000px; 
             margin-top: 80px;
-            /* Swiper 容器 */
             overflow: hidden; 
         }
 
         .gallery-item {
-            /* Swiper Slide 样式 */
             height: 200px; 
-            width: 100%; /* 由 Swiper 控制宽度 */
+            width: 100%; 
             border-radius: 16px; 
             overflow: hidden; 
             flex-shrink: 0;
@@ -126,8 +139,6 @@
         }
         .gallery-item:hover img { filter: grayscale(100%); transform: scale(1.05); } 
         
-        /* 移除原有的 @keyframes scroll */
-
         /* --- 移动端响应式 --- */
         @media (max-width: 768px) {
             body { padding: 40px 5vw; }
@@ -191,7 +202,7 @@
         </a>
 
         <div class="card music-card">
-            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/artist/YOUR_ARTIST_ID?utm_source=generator&theme=0" width="100%" height="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
 
     </div>
@@ -204,7 +215,7 @@
             <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/416560155_1566547424081636_2590372858106644115_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=103&ig_cache_key=MzI3MTkyNTY2NjI0OTYwNTM1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTc5Ni5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=310resrR6REQ7kNvwFV5Y_Z&_nc_oc=AdnydkFv_P8F__rNw6GCbJzPi5C6MmKFO7JRwd4Lf-6vMvbitiHFVkxgKkbKb2JKWW4&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=NVpazklNAzqiTdXmxo_mpw&oh=00_Afj7Q50-yUmPOwqT_xVJTIP6Ea81YGOBKm5oPgD-v1KpOQ&oe=69312829"></div>
             <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/426069052_393098243298091_6186439351646472103_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&ig_cache_key=MzI5OTYzMDg2NjQ4NTU3MjgwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=7_5XlzicN2wQ7kNvwH1yigb&_nc_oc=Adk5mTtoWEtK_5ru4qc_U9SUi24yu6OSqRqe6LiDyjyrp7gpbJYGhzkEKTtJo7No9A0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=yQ0bhCgDYoWWV0NJFeLDSQ&oh=00_AfjG8sjB7jb_SjjCyffHkqhwquyKJiacvswZAVdwo_F4Qg&oe=69313935"></div>
             <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.29350-15/435291514_1339378000068964_4602357835096393093_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=106&ig_cache_key=MzMzODMxNjU5NjE3NDkxMjYwMQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=eW3j5fptCNAQ7kNvwElSxGo&_nc_oc=Adnk6qQKEb3DgizT5JaZc7e74BtYn8f4_L25H_q8DQgOgHCo1z3rsa6M9HuxConDe5E&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=lQJIgE1AIIizGNmf27w3SQ&oh=00_AfgbX64u7R26jA2YXSZeKF17jRIW5NRAa19s2bkFjpN1rA&oe=693126CC"></div>
-            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/474986377_18479704585054126_4908245254158342239_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzU1OTkzMjc4NTY3MjgxNjcyMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=bkGGE6iSrKgQ7kNvwEtRmdx&_nc_oc=Adn5zBcz1w7dLVoTJjgIyCZNnwdYHCiJIVsQLuUG9jQPT756FVNU4NYM8stQrp4t_nc&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=pBkKhbH9UXsx0W0bCIW0uQ&oh=00_AfiOzjVjGPA5TujNmgn6jAuJEQsThhYj4yq98xNwflUDcg&oe=69314075"></div>
+            <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/474986377_18479704585054126_4908245254158342239_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&ig_cache_key=MzU1OTkzMjc4NTY3MjgxNjcyMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTA4Mi5zZHIuQzMifQ%3D%3D&_nc_ohc=bkGGE6iSrKgQ7kNvwEtRmdx&_nc_oc=Adn5zBcz1w7dLVoTJjgIyCZNnwdYHCiJIVsQLuUG9jQPT756FVNU4NYM8stRrp4t_nc&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=pBkKhbH9UXsx0W0bCIW0uQ&oh=00_AfiOzjVjGPA5TujNmgn6jAuJEQsThhYj4yq98xNwflUDcg&oe=69314075"></div>
             <div class="gallery-item swiper-slide"><img src="https://scontent.cdninstagram.com/v/t51.75761-15/487469288_18490088137054126_7603686794289392639_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=110&ig_cache_key=MzU5ODgwODE0MjU3MjEyNDQ1Nw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjcyMHg5MDAuc2RyLkMzIn0%3D&_nc_ohc=fuu5zGtDZs0Q7kNvwFrI_o4&_nc_oc=AdnHnjfaLbKAGryOHrJssfYFy-C4K5xUUw-wJZP3lPMuPGw5WbjJzOTrzX5SWwsKpas&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=maZganjQbgXM0Hv8lFF-XA&oh=00_AfiMkh10aBHCI5I0n9mA3mltAhkWjyhMcLmnuT1gOovg3Q&oe=69313806"></div>
         </div>
     </div>
@@ -214,21 +225,19 @@
     <script>
         // 确保 DOM 加载完毕再初始化 Swiper
         document.addEventListener('DOMContentLoaded', function() {
-            // 注意：我们将 .gallery-section 设为 Swiper 容器 (.swiper-container)
             var swiper = new Swiper('.swiper-container', {
                 // 用户要求的配置
-                slidesPerView: 2.2, // 每页显示 2.2 个滑块
-                spaceBetween: 24,   // 滑块间距 24px
-                loop: true,         // 开启循环模式
+                slidesPerView: 2.2, 
+                spaceBetween: 24,   
+                loop: true,         
                 autoplay: {
-                    delay: 2500,    // 自动播放间隔 2.5 秒
-                    disableOnInteraction: false, // 用户滑动后不停止自动播放
+                    delay: 2500,    
+                    disableOnInteraction: false, 
                 },
-                speed: 800,         // 切换速度 800ms，更平滑
+                speed: 800,         
                 
                 // 移动端配置 (可选，增强体验)
                 breakpoints: {
-                    // 当视口宽度小于等于 768px 时
                     768: {
                         slidesPerView: 1.2,
                         spaceBetween: 16
@@ -240,6 +249,3 @@
 
 </body>
 </html>
-
-
-
