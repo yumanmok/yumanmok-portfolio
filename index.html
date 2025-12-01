@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <style>
-        /* --- 1. 基础设置与色彩 (引入环境光) --- */
+        /* --- 1. 基础设置与色彩 --- */
         :root {
             --brand-color: #5d5cff;
             --brand-hover: #4e4df0;
@@ -37,8 +37,10 @@
                 radial-gradient(circle at 15% 50%, rgba(93, 92, 255, 0.08), transparent 25%),
                 radial-gradient(circle at 85% 30%, rgba(93, 92, 255, 0.08), transparent 25%);
             background-attachment: fixed;
+            overflow-x: hidden; /* 防止横向滚动条 */
         }
 
+        /* --- 2. 网格布局 --- */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -113,7 +115,6 @@
         .social-card svg { width: 32px; height: 32px; margin-bottom: 16px; }
         .instagram { grid-column: span 2; }
         .tiktok, .xiaohongshu { grid-column: span 1; }
-
         .xiaohongshu { color: #ff2442; }
         .xiaohongshu .label { color: rgba(255, 36, 66, 0.6); }
 
@@ -123,11 +124,45 @@
 
         .music-card { grid-column: span 2; padding: 0; background: #000; }
 
-        /* 轮播区域 (Desktop 默认设置) */
-        .gallery-section { width: 100%; max-width: 1400px; margin-top: 40px; }
-        .gallery-item { border-radius: 24px; height: 240px; }
+        /* --- 3. 轮播区域修正 (Gallery Fixes) --- */
+        .gallery-section { 
+            width: 100%; 
+            max-width: 1400px; 
+            margin-top: 40px; 
+            /* 必须设置 overflow hidden 否则 Swiper 会撑开 */
+            overflow: hidden; 
+            position: relative;
+        }
+        
+        /* Swiper 容器必须有宽度，否则图片会显示巨大 */
+        .swiper {
+            width: 100%;
+            height: 100%;
+            padding-bottom: 20px; /* 给阴影留点空间 */
+        }
 
-        /* --- 3. 手机端优化 (Mobile Fix) --- */
+        .gallery-item { 
+            /* ⚠️ 这里的宽度由 Swiper JS 控制，千万不要写 width: 100% */
+            height: 240px; 
+            border-radius: 24px; 
+            overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; /* 消除图片底部缝隙 */
+            filter: grayscale(0%);
+            transition: 0.3s;
+        }
+        
+        .gallery-item:hover img { filter: grayscale(100%); transform: scale(1.05); }
+
+
+        /* --- 4. 手机端适配 (Mobile) --- */
         @media (max-width: 768px) {
             body { padding: 40px 5vw; }
             
@@ -149,9 +184,9 @@
             .contact span { font-size: 1.2rem; }
             .card { padding: 24px; border-radius: 24px; }
 
-            /* --- ⚠️ 关键修复：手机端轮播图变小 --- */
+            /* 手机端轮播图高度变小 */
             .gallery-item { 
-                height: 140px; /* 强制高度变小 */
+                height: 140px; 
                 border-radius: 16px;
             }
         }
@@ -214,24 +249,27 @@
         </div>
     </div>
 
-    <div class="gallery-section swiper-container">
-        <div class="gallery-track swiper-wrapper">
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image1.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image2.jpg"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image3.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image4.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image5.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image6.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image7.JPG"></div>
-            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image8.JPG"></div>
+    <div class="gallery-section">
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image1.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image2.jpg"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image3.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image4.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image5.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image6.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image7.JPG"></div>
+                <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image8.JPG"></div>
+            </div>
         </div>
     </div>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const swiper = new Swiper('.swiper-container', {
-                slidesPerView: 2.5, // 电脑端显示 2.5 张，看起来很宽敞
+            // 注意：这里初始化的选择器是 .swiper
+            const swiper = new Swiper('.swiper', {
+                slidesPerView: 2.5, // 电脑端每屏显示 2.5 张
                 spaceBetween: 24,
                 loop: true,
                 autoplay: {
@@ -240,11 +278,12 @@
                 },
                 speed: 800,
                 breakpoints: {
-                    /* ⚠️ 关键 JS 修复：手机端配置 */
+                    // 手机端 (小于768px)
                     0: {
-                        slidesPerView: 2.2, /* 手机端显示 2.2 张，而不是巨大的 1.2 张 */
+                        slidesPerView: 2.2, // 手机端每屏显示 2.2 张
                         spaceBetween: 12
                     },
+                    // 平板/电脑端 (大于768px)
                     768: {
                         slidesPerView: 2.5,
                         spaceBetween: 24
