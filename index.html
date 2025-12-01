@@ -122,27 +122,31 @@
         .contact:hover { background: var(--brand-hover); box-shadow: 0 10px 30px rgba(93, 92, 255, 0.4); }
         .contact span { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;}
 
-        .music-card { grid-column: span 2; padding: 0; background: #000; }
+        /* 音乐卡片 (修正：移除 padding 让 iframe 贴边) */
+        .music-card { 
+            grid-column: span 2; 
+            padding: 0; /* 移除 padding */
+            background: #000; 
+            display: block; /* 确保 iframe 可以占据整个空间 */
+        }
+        .music-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3); }
 
         /* --- 3. 轮播区域修正 (Gallery Fixes) --- */
         .gallery-section { 
             width: 100%; 
             max-width: 1400px; 
             margin-top: 40px; 
-            /* 必须设置 overflow hidden 否则 Swiper 会撑开 */
             overflow: hidden; 
             position: relative;
         }
         
-        /* Swiper 容器必须有宽度，否则图片会显示巨大 */
         .swiper {
             width: 100%;
             height: 100%;
-            padding-bottom: 20px; /* 给阴影留点空间 */
+            padding-bottom: 20px;
         }
 
         .gallery-item { 
-            /* ⚠️ 这里的宽度由 Swiper JS 控制，千万不要写 width: 100% */
             height: 240px; 
             border-radius: 24px; 
             overflow: hidden; 
@@ -154,7 +158,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block; /* 消除图片底部缝隙 */
+            display: block;
             filter: grayscale(0%);
             transition: 0.3s;
         }
@@ -205,7 +209,7 @@
             <div class="label">© 2025</div>
         </div>
 
-     <a href="https://www.douyin.com/video/7554673535001103656" target="_blank" class="card showreel">
+        <a href="https://www.douyin.com/video/7554673535001103656" target="_blank" class="card showreel">
             <video autoplay loop muted playsinline class="video-bg">
                 <source src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/video/video1.mp4" type="video/mp4">
             </video>
@@ -245,7 +249,17 @@
         </a>
 
         <div class="card music-card">
-            <iframe style="border-radius:32px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator&theme=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe 
+                style="border-radius:24px" 
+                data-testid="embed-iframe"
+                src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator" 
+                width="100%" 
+                height="352" 
+                frameBorder="0" 
+                allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
         </div>
     </div>
 
@@ -267,9 +281,8 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // 注意：这里初始化的选择器是 .swiper
             const swiper = new Swiper('.swiper', {
-                slidesPerView: 2.5, // 电脑端每屏显示 2.5 张
+                slidesPerView: 2.5,
                 spaceBetween: 24,
                 loop: true,
                 autoplay: {
@@ -278,12 +291,10 @@
                 },
                 speed: 800,
                 breakpoints: {
-                    // 手机端 (小于768px)
                     0: {
-                        slidesPerView: 2.2, // 手机端每屏显示 2.2 张
+                        slidesPerView: 2.2,
                         spaceBetween: 12
                     },
-                    // 平板/电脑端 (大于768px)
                     768: {
                         slidesPerView: 2.5,
                         spaceBetween: 24
