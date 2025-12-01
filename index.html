@@ -8,284 +8,151 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <style>
-        /* --- 基础设置 (浅色主题优化) --- */
+        /* --- 1. 基础设置与色彩 (引入环境光) --- */
         :root {
-            --brand-color: #5d5cff;       /* 引入一个主色调（淡紫色/蓝色） */
+            --brand-color: #5d5cff;
             --brand-hover: #4e4df0;
-            --bg-color: #f6f6f9;          /* 背景略微偏灰，增加深度 */
-            --card-bg: #ffffff;
+            --bg-color: #f8f9fc;
+            --card-bg: rgba(255, 255, 255, 0.85);
             --card-hover: #ffffff;
-            --text-main: #111111;
-            --text-sub: #888888;
-            --shadow-base: rgba(0, 0, 0, 0.04);
-            --shadow-hover: rgba(0, 0, 0, 0.12); /* 增强悬停阴影效果 */
+            --text-main: #0a0a0a;
+            --text-sub: #666666;
+            --shadow-base: 0 4px 24px -6px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px -10px rgba(93, 92, 255, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 80px 10vw;
+            padding: 80px 4vw;
             line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(93, 92, 255, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(93, 92, 255, 0.08), transparent 25%);
+            background-attachment: fixed;
         }
 
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: minmax(160px, auto);
-            gap: 32px;
-            max-width: 1000px;
+            grid-auto-rows: minmax(180px, auto); 
+            gap: 24px;
+            max-width: 1200px; 
             width: 100%;
-            margin-bottom: 40px;
+            margin-bottom: 60px;
         }
 
-        h1,
-        h2,
-        h3 {
-            letter-spacing: -0.5px;
-        }
-
+        /* --- 卡片通用样式 --- */
         .card {
             background-color: var(--card-bg);
-            border-radius: 24px;
-            padding: 32px;
-            transition: all 0.35s cubic-bezier(.25, .1, .25, 1);
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 32px;
+            padding: 36px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
             overflow: hidden;
             text-decoration: none;
             color: var(--text-main);
-            border: none;
-            box-shadow: 0 4px 20px var(--shadow-base);
+            box-shadow: var(--shadow-base);
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px) scale(1.01);
             background-color: var(--card-hover);
-            box-shadow: 0 12px 36px var(--shadow-hover);
+            box-shadow: var(--shadow-hover);
+            z-index: 2;
         }
 
         .label {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: var(--text-sub);
             margin-top: auto;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            opacity: 0.8;
         }
 
-        .card:hover .label {
-            color: var(--text-main);
-        }
-
-        /* --- 个人简介样式 --- */
-        .profile {
-            grid-column: span 2;
-            grid-row: span 2;
-            justify-content: space-between;
-        }
-
+        /* --- 各模块样式 --- */
+        .profile { grid-column: span 2; grid-row: span 2; justify-content: space-between; }
         .avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 20px;
+            width: 96px; height: 96px;
+            border-radius: 50%; margin-bottom: 24px;
             background-image: url('https://scontent.cdninstagram.com/v/t51.29350-15/434695200_817129286906866_5624983301605661099_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzMzNDgxMTIwMDgwMTc5MTUzMg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjE0NDB4MTgwMC5zZHIuZGVmYXVsdF9pbWFnZS5DMyJ9&_nc_ohc=sBU2uZFYaUMQ7kNvwHjV7YE&_nc_oc=AdnuMVxSF7HieVQpRphPEXeu5g6JHRah7Pejhusmn206Yv4sNJQJvtVHMAoCl6srt14&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=sKwDtNHLCV5uSAoNMfE1zw&oh=00_AfgzWKDkKmyB4y-Jv7adx2B8nZwn10SumVCwjVqG01Z5oA&oe=6931C1E9');
-            background-size: cover;
-            background-position: center;
+            background-size: cover; background-position: center;
+            border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
+        .profile h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 12px; letter-spacing: -1px; }
+        .profile p { font-size: 1.1rem; opacity: 0.7; font-weight: 500;}
 
-        .profile h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .profile p {
-            font-size: 1rem;
-            opacity: 0.7;
-        }
-
-        /* --- 视频模块样式 --- */
-        .showreel {
-            grid-column: span 2;
-            grid-row: span 2;
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .video-bg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 1;
-            transition: transform 0.4s;
-            border-radius: 24px;
-        }
-
-        .showreel:hover .video-bg {
-            opacity: 1;
-            transform: scale(1.02);
-        }
-
+        .showreel { grid-column: span 2; grid-row: span 2; padding: 0; border: 0; }
+        .video-bg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .showreel:hover .video-bg { transform: scale(1.05); }
         .play-btn {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(8px);
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            color: var(--text-main);
-            z-index: 10;
-            pointer-events: none;
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px);
+            width: 80px; height: 80px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: #fff; z-index: 10; pointer-events: none; transition: 0.3s;
         }
+        .showreel:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); background: rgba(255,255,255,0.3); }
 
-        /* --- 社交媒体卡片样式 --- */
-        .instagram {
-            grid-column: span 2;
-            background: var(--card-bg);
-            border: 1px solid #eee;
-        }
+        .social-card { background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+        .social-card svg { width: 32px; height: 32px; margin-bottom: 16px; }
+        .instagram { grid-column: span 2; }
+        .tiktok, .xiaohongshu { grid-column: span 1; }
 
-        .card svg {
-            stroke: var(--text-main);
-        }
-        
-        /* 针对 TikTok/Red 的颜色特殊处理 */
-        .card a.tiktok svg {
-            fill: var(--text-main);
-        }
+        .xiaohongshu { color: #ff2442; }
+        .xiaohongshu .label { color: rgba(255, 36, 66, 0.6); }
 
-        .xiaohongshu:hover {
-            border-color: rgba(255, 36, 66, 0.4);
-        }
+        .contact { grid-column: span 2; background: var(--brand-color); color: #fff; justify-content: center; align-items: center; }
+        .contact:hover { background: var(--brand-hover); box-shadow: 0 10px 30px rgba(93, 92, 255, 0.4); }
+        .contact span { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;}
 
-        /* --- 联系卡片样式 (关键修改点) --- */
-        .contact {
-            grid-column: span 2;
-            align-items: center;
-            justify-content: center;
-            /* 修正为使用主色调，增加视觉丰富度 */
-            background: var(--brand-color);
-            color: #fff; 
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
+        .music-card { grid-column: span 2; padding: 0; background: #000; }
 
-        .contact:hover {
-            /* 悬停时颜色变深 */
-            background: var(--brand-hover);
-        }
+        /* 轮播区域 (Desktop 默认设置) */
+        .gallery-section { width: 100%; max-width: 1400px; margin-top: 40px; }
+        .gallery-item { border-radius: 24px; height: 240px; }
 
-        .contact span {
-            font-weight: 700;
-            font-size: 1.4rem;
-        }
-
-        /* --- 音乐卡片样式 (关键修改点) --- */
-        .music-card {
-            grid-column: span 2;
-            padding: 0;
-            /* 移除纯黑背景，采用普通卡片背景，让 iframe 自身的深色背景生效 */
-            background: var(--card-bg); 
-        }
-
-        .music-card iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 24px;
-        }
-
-        /* --- Swiper 样式 --- */
-        .gallery-section {
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 80px;
-            overflow: hidden;
-        }
-
-        .gallery-item {
-            height: 200px;
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(0%);
-            transition: filter 0.3s, transform 0.3s;
-        }
-
-        .gallery-item:hover img {
-            filter: grayscale(100%);
-            transform: scale(1.05);
-        }
-
-        /* --- 移动端响应式 --- */
+        /* --- 3. 手机端优化 (Mobile Fix) --- */
         @media (max-width: 768px) {
-            body {
-                padding: 40px 5vw;
-            }
-
+            body { padding: 40px 5vw; }
+            
             .portfolio-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 16px;
+                grid-auto-rows: minmax(160px, auto);
             }
 
-            .profile,
-            .showreel,
-            .instagram,
-            .tiktok,
-            .xiaohongshu,
-            .contact,
-            .music-card {
-                grid-column: span 1;
-                min-height: 140px;
-                padding: 24px;
-            }
+            .profile { grid-column: span 2; }
+            .showreel { grid-column: span 2; min-height: 240px; }
+            .music-card { grid-column: span 2; }
+            .instagram { grid-column: span 1; }
+            .tiktok { grid-column: span 1; }
+            .xiaohongshu { grid-column: span 1; }
+            .contact { grid-column: span 1; }
 
-            .profile h1 {
-                font-size: 1.8rem;
-            }
+            .profile h1 { font-size: 2rem; }
+            .contact span { font-size: 1.2rem; }
+            .card { padding: 24px; border-radius: 24px; }
 
-            .showreel {
-                min-height: 220px;
-            }
-
-            .music-card {
-                min-height: 152px;
-            }
-
-            .avatar {
-                width: 60px;
-                height: 60px;
-            }
-
-            .gallery-section {
-                margin-top: 40px;
+            /* --- ⚠️ 关键修复：手机端轮播图变小 --- */
+            .gallery-item { 
+                height: 140px; /* 强制高度变小 */
+                border-radius: 16px;
             }
         }
     </style>
@@ -294,7 +161,6 @@
 <body>
 
     <div class="portfolio-grid">
-
         <div class="card profile">
             <div>
                 <div class="avatar"></div>
@@ -318,8 +184,8 @@
             </div>
         </a>
 
-        <a href="https://www.instagram.com/YUMANMOK" target="_blank" class="card instagram">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href="https://www.instagram.com/YUMANMOK" target="_blank" class="card instagram social-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                 <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -327,46 +193,45 @@
             <div class="label">Instagram ↗</div>
         </a>
 
-        <a href="https://www.tiktok.com/@yuman5312" target="_blank" class="card tiktok">
-            <svg width="32" height="32" viewBox="0 0 256 256" fill="currentColor">
+        <a href="https://www.tiktok.com/@yuman5312" target="_blank" class="card tiktok social-card">
+            <svg viewBox="0 0 256 256" fill="currentColor" stroke="none">
                 <path d="M128 0C57.31 0 0 57.31 0 128s57.31 128 128 128 128-57.31 128-128S198.69 0 128 0zm24 184a40 40 0 1 1-24-36v-44h-32v64a64 64 0 1 0 56-60v-24h-24v52a40 40 0 0 1-16 36z" />
             </svg>
             <div class="label">TIKTOK</div>
         </a>
 
-        <a href="https://www.xiaohongshu.com/user/profile/5687adff5e87e731b77b52db" target="_blank" class="card xiaohongshu">
-            <div style="color: #ff2442; font-weight:900; font-size:1.8rem;">RED</div>
+        <a href="https://www.xiaohongshu.com/user/profile/5687adff5e87e731b77b52db" target="_blank" class="card xiaohongshu social-card">
+            <div style="font-weight:900; font-size:1.6rem;">RED</div>
             <div class="label">Xiaohongshu</div>
         </a>
 
         <a href="mailto:yumanmok42@gmail.com" class="card contact">
-            <span style="font-weight:700; font-size:1.4rem;">TALK WITH ME</span>
+            <span>TALK WITH ME</span>
         </a>
 
         <div class="card music-card">
-            <iframe style="border-radius:24px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator" width="100%" height="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <iframe style="border-radius:32px" src="https://open.spotify.com/embed/playlist/6JDe9n27vmBfrDyLtZeag9?utm_source=generator&theme=0" width="100%" height="100%" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
         </div>
-
     </div>
 
-<div class="gallery-section swiper-container">
-    <div class="gallery-track swiper-wrapper">
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image1.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image2.jpg"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image3.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image4.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image5.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image6.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image7.JPG"></div>
-        <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image8.JPG"></div>
+    <div class="gallery-section swiper-container">
+        <div class="gallery-track swiper-wrapper">
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image1.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image2.jpg"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image3.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image4.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image5.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image6.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image7.JPG"></div>
+            <div class="gallery-item swiper-slide"><img src="https://yuman-pf-images.oss-cn-guangzhou.aliyuncs.com/images/images/image8.JPG"></div>
+        </div>
     </div>
-</div>
 
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const swiper = new Swiper('.swiper-container', {
-                slidesPerView: 2.2,
+                slidesPerView: 2.5, // 电脑端显示 2.5 张，看起来很宽敞
                 spaceBetween: 24,
                 loop: true,
                 autoplay: {
@@ -375,9 +240,14 @@
                 },
                 speed: 800,
                 breakpoints: {
+                    /* ⚠️ 关键 JS 修复：手机端配置 */
+                    0: {
+                        slidesPerView: 2.2, /* 手机端显示 2.2 张，而不是巨大的 1.2 张 */
+                        spaceBetween: 12
+                    },
                     768: {
-                        slidesPerView: 1.2,
-                        spaceBetween: 16
+                        slidesPerView: 2.5,
+                        spaceBetween: 24
                     }
                 }
             });
@@ -385,7 +255,4 @@
     </script>
 
 </body>
-
 </html>
-
-
