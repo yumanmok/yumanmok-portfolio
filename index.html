@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
 
     <style>
-        /* --- 1. 基础设置与色彩 --- */
+        /* --- 1. 基础设置与色彩 (优化了背景颜色和阴影) --- */
         :root {
             --brand-color: #5d5cff;
             --brand-hover: #4e4df0;
@@ -18,7 +18,7 @@
             --text-main: #0a0a0a;
             --text-sub: #666666;
             --shadow-base: 0 4px 24px -6px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 20px 40px -10px rgba(93, 92, 255, 0.15);
+            --shadow-hover: 0 20px 40px -10px rgba(93, 92, 255, 0.2); /* 增强悬停阴影 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,10 +34,10 @@
             padding: 80px 4vw;
             line-height: 1.6;
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(93, 92, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(93, 92, 255, 0.08), transparent 25%);
+                radial-gradient(circle at 15% 50%, rgba(93, 92, 255, 0.1), transparent 30%), /* 增强光晕柔和度 */
+                radial-gradient(circle at 85% 30%, rgba(93, 92, 255, 0.1), transparent 30%);
             background-attachment: fixed;
-            overflow-x: hidden; /* 防止横向滚动条 */
+            overflow-x: hidden;
         }
 
         /* --- 2. 网格布局 --- */
@@ -98,6 +98,7 @@
         .profile h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.1; margin-bottom: 12px; letter-spacing: -1px; }
         .profile p { font-size: 1.1rem; opacity: 0.7; font-weight: 500;}
 
+        /* 视频模块修正: 播放按钮默认隐藏，悬停时显示 */
         .showreel { grid-column: span 2; grid-row: span 2; padding: 0; border: 0; }
         .video-bg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
         .showreel:hover .video-bg { transform: scale(1.05); }
@@ -108,8 +109,13 @@
             display: flex; align-items: center; justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: #fff; z-index: 10; pointer-events: none; transition: 0.3s;
+            opacity: 0; /* 默认隐藏 */
         }
-        .showreel:hover .play-btn { transform: translate(-50%, -50%) scale(1.1); background: rgba(255,255,255,0.3); }
+        .showreel:hover .play-btn { 
+            transform: translate(-50%, -50%) scale(1.1); 
+            background: rgba(255,255,255,0.3);
+            opacity: 1; /* 悬停时显示 */
+        }
 
         .social-card { background: #fff; display: flex; flex-direction: column; justify-content: space-between; }
         .social-card svg { width: 32px; height: 32px; margin-bottom: 16px; }
@@ -122,12 +128,12 @@
         .contact:hover { background: var(--brand-hover); box-shadow: 0 10px 30px rgba(93, 92, 255, 0.4); }
         .contact span { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px;}
 
-        /* 音乐卡片 (修正：移除 padding 让 iframe 贴边) */
+        /* 音乐卡片 */
         .music-card { 
             grid-column: span 2; 
-            padding: 0; /* 移除 padding */
+            padding: 0;
             background: #000; 
-            display: block; /* 确保 iframe 可以占据整个空间 */
+            display: block;
         }
         .music-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3); }
 
